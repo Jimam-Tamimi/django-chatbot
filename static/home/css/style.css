@@ -1,0 +1,215 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    scroll-behavior: smooth;
+
+}
+
+
+.all-messages-section
+
+
+.all-messages-section::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.all-messages-section::-webkit-scrollbar
+{
+    width: 8px;
+    background-color: #F5F5F5;
+}
+
+.all-messages-section::-webkit-scrollbar-thumb
+{
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+    background-color: #9295d4;
+}
+
+
+.msg-container{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 95px;
+    height: 95px;
+}
+
+
+.msg-section-opener{
+    height: inherit;
+    width: inherit;
+    background: #5A5EB9;
+    border-radius: 100px;
+    /* transition: all .4s cubic-bezier(0.075, 0.82, 0.165, 1); */
+    transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    box-shadow: 0px 3px 16px 0px rgb(0 0 0 / 60%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+
+}
+
+.msg-section-opener:hover{
+    background: #4348a5;
+}
+.msg-section-opener.hide{
+    height: 0;
+    width: 0;
+    opacity: 0;
+    font-size: 0;
+
+}
+
+
+.msg-section{
+    width: 350px;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    height: 82vh;
+    max-height: 100vh;
+    transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+
+    box-shadow: 0px 5px 35px 9px #ccc;
+    border-radius: 5px;
+}
+.msg-section.expand{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+.msg-section.hide{
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.msg-section .top-section{
+    height: 70px;
+    background: #5A5EB9;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0 15px;
+}
+.msg-section .top-section .heading{
+    font-size: 20px;
+    font-weight: 500;
+}
+.msg-section .top-section .close, .msg-section .top-section .expand-btn{
+
+    font-size: 23px;
+    /* font-weight: 300; */
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    position: relative;
+
+}
+#message-opener-icon{
+    color: white;
+}
+
+.bottom-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - 70px);
+}
+
+.bottom-section .all-messages-section{
+    height: calc(100% - 45px);
+    width: 100%;
+    padding: 0px 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.bottom-section .send-message-section{
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px -6px 20px 0px #00000047;
+    z-index: 4343;
+
+}
+
+.bottom-section .all-messages-section .message{
+    width: 100%;
+    margin: 23px 0;
+    color: black;
+}
+
+.bottom-section .all-messages-section .message .message-status{
+    max-width: 65%;
+    padding: 17px 15px;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    line-height: 24px;
+    font-size: 15px;
+    width: fit-content;
+}
+.bottom-section .all-messages-section .message .sent{
+    margin-left: auto;
+    border-bottom-left-radius: 5px;
+    background: #0084FF;
+    color: white;
+
+}
+.bottom-section .all-messages-section .message .got{
+    margin-right: auto;
+    border-bottom-right-radius: 5px;
+    background: #E4E6EB;
+    color: black;
+
+}
+
+.bottom-section .send-message-section .message-input{
+    height: 100%;
+    width: calc(100% - 50px);
+    outline: none;
+    padding: 0px 11px;
+    border: none;
+    background: #edeef3;
+}
+
+.bottom-section .send-message-section .send-msg-btn{
+    height: 100%;
+    width: 50px;
+    border: none;
+    outline: none;
+    background: #5a5eb9;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+}
+.bottom-section .send-message-section .send-msg-btn:hover{
+    background: #4348a5;
+}
