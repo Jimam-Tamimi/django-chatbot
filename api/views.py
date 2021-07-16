@@ -38,6 +38,8 @@ def getResponse(reuqest):
 
     requestData = loads(reuqest.body)
     userMessage = requestData['message'].lower()
+    if(len(Data.objects.all()) == 0):
+        return JsonResponse({"satus": True, "reply": "Please contact with the developer."})
     reply = getReply(userMessage)
     if(reply is not None):
         context = {
