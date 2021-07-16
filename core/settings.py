@@ -84,7 +84,6 @@ DATABASES = {
     #     'PASSWORD': 'admin',
     #     'HOST': 'localhost',
     #     'PORT': '',
-
     # }
 
     'default': {
