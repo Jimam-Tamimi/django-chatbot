@@ -2,7 +2,7 @@ import wikipedia
 from datetime import datetime
 
 
-stop_words = {'tell', 'me', 'about', 'can', 'you', 'your', 'please', 'plz', 'what', 'do', 'you', 'know'}
+stop_words = {'tell', 'me', 'about', 'can', 'your', 'please', 'plz', 'what', 'do', 'you', 'know'}
 
 
 timeQuery = [
@@ -11,12 +11,15 @@ timeQuery = [
     'the time'
 ]
 def tellMeAbout(message):
+    messageList = message.split()
     for word in stop_words:
-        message = message.lower().replace(word, '') 
-    topic = message
+        if(word in messageList):
+            messageList.remove(word)
+    topic = "".join(f"{word} " for word in messageList)
+    topic = topic.strip()
     print(topic)
     try:
-        return wikipedia.summary(topic, sentences = 2)
+        return wikipedia.summary(topic, sentences = 1)
     except Exception:
         return "Couldn't find anything about this topic."
 

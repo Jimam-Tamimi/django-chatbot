@@ -49,4 +49,6 @@ from api import intelligence
 
 wikipedia.summary("python django", sentences = 2)
 
-print(intelligence.advanceMessages('tell me about python django'))
+print(intelligence.advanceMessages('tell me about youtube'))
+
+# print("name is jimam".split(' '))
