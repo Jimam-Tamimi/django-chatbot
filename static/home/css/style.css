@@ -113,6 +113,10 @@
 .msg-section .top-section .heading{
     font-size: 20px;
     font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .msg-section .top-section .close, .msg-section .top-section .expand-btn{
 
@@ -212,4 +216,117 @@
 }
 .bottom-section .send-message-section .send-msg-btn:hover{
     background: #4348a5;
+}
+
+
+
+.chatbot-container{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.mode-options-toggler{
+    position: absolute;
+    cursor: pointer;
+}
+
+.mode-options-toggler > i{
+    position: relative;
+    top: 25px;
+    font-size: 22px;
+    padding: 0px 4px;
+}
+
+.mode-options{
+    transform: scale(0);
+    transition: all .4s ease-in-out;
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    opacity: 0;
+    z-index: 15 ;
+
+}
+.mode-options-wrapper{
+    transition: all .4s ease-in-out;
+    position: relative;
+    width: 100%;
+    height: 72px;
+    top: 54px;
+    background: #5a5fb900;
+    z-index: 2;
+
+
+}
+
+.mode-options.show{
+    transform: scale(1);
+    opacity: 1;
+}
+.message-mode-toggler{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#msg-section-expand{
+    z-index: 99 !important;
+}
+
+.btn{
+    margin: 0px 10px;
+    border: none;
+    outline: none;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 2px;
+    border-top-right-radius: 2px;
+    cursor: pointer;
+    transition: all .4s ease-in;
+}
+.btn-sm{
+    padding: 6.5px 10px;
+}
+.btn-sm{
+    padding: 6.5px 10px;
+}
+
+
+.btn-mode-toggler{
+    transition: all .4s ease-in;
+    box-shadow: 4px 4px 12px 0px #000000a6;
+}
+.btn-mode-toggler:hover{
+    background: #4348a5;
+    color: white;
+    box-shadow: 0px 0px 0px 0px #00000000;
+}
+.btn-mode-toggler.active{
+    background: #23288f;
+    color: white;
+    box-shadow: 0px 0px 0px 0px #00000000;
+}
+
+.listening-info{
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    background: #5a5eb9;
+    color: white;
+    box-shadow: 0px 3px 16px 0px rgb(0 0 0 / 60%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    transform: scale(0);
+    opacity: 0;
+    transition: all .4s ease-in;
+}
+.listening-info.active{
+    transform: scale(1);
+    opacity: 1;
 }

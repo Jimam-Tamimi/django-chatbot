@@ -7,6 +7,12 @@ let msgSectionClose = document.getElementById('msg-section-close')
 let msgSectionExpand = document.getElementById('msg-section-expand')
 let sendMessageBtn = document.getElementById('send-message')
 let message = document.getElementById('message')
+let btnModeToggler = document.getElementsByClassName('btn-mode-toggler')
+let listeninInfo = document.getElementById('listening-info')
+
+
+let TEXT_MODE = true
+let COMMAND_MODE  = false
 
 
 // for voice 
@@ -33,19 +39,55 @@ s.then((voicesVar) => {voices = voicesVar; msg.voice =  voices[1]; });
 msg.volume = 1; // From 0 to 1
 msg.rate = .95; // From 0.1 to 10
 msg.pitch = 0; // From 0 to 2
-msg.lang = 'es';
+msg.lang = 'es-US';
+
+
+// for speach recognition 
+
+let speechRecognition = new webkitSpeechRecognition() || SpeechRecognition() ;
+// String for the Final Transcript
+let final_transcript = "";
+// Set the properties for the Speech Recognition object
+speechRecognition.continuous = true;
+speechRecognition.interimResults = true;
+speechRecognition.lang = 'en-US'
+speechRecognition.onstart = () => {
+    // Show the Status Element
+    listeninInfo.classList.add('active')
+};
+
+speechRecognition.onend = () => {
+    // Hide the Status Element
+    listeninInfo.classList.remove('active')
+    if(COMMAND_MODE){
+        speechRecognition.start()
+    }
+
+};
+
+speechRecognition.onresult = (event) => {
+    // Create the interim transcript string locally because we don't want it to persist like final transcript
+    let interim_transcript = "";
+
+    // Loop through the results from the speech recognition object.
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      // If the result item is Final, add it to Final Transcript, Else add it to Interim transcript
+      if (event.results[i].isFinal) {
+        final_transcript += event.results[i][0].transcript;
+
+      } else {
+        message.value = event.results[i][0].transcript;
+      }
+    }
+
+    message.value = final_transcript
+    final_transcript = ""
+};
 
 
 
 
 
-setTimeout(() => {
-    voices = window.speechSynthesis.getVoices();
-}, 1000);
-
-setTimeout(() => {
-    console.log(window.speechSynthesis.getVoices());
-}, 50);
 
 
 msgSectionOpener.addEventListener('click', (e)=>{
@@ -91,7 +133,6 @@ message.addEventListener("keyup", (event) => {
         let msg = message.value
         msg = msg.replace(/[^a-zA-Z ]/g, "") // removing all spacol charecter
         msg = msg.replace(/\s+/g, ' ').trim() // removing extra spaces
-        console.log(msg);
         sendMessage(msg)
     }
 })
@@ -141,7 +182,7 @@ function sendMessageToApi(msg) {
         
     })
     .catch((error) => {
-        console.error('Error:', error);
+        // console.error('Error:', error);
     });
 }
 
@@ -155,4 +196,52 @@ function showReply(msg) {
     `
     speak(msg)
     allMessageSection.scrollTop = allMessageSection.scrollHeight;
+}
+
+
+
+let modeOptionsToggler = document.getElementById('mode-options-toggler')
+modeOptionsToggler.addEventListener('click', (e)=>{
+    let modeOptionsDivId = e.currentTarget.getAttribute('data-toggle')
+    let modeOptionsDiv = document.getElementById(modeOptionsDivId)
+    modeOptionsDiv.classList.toggle('show')
+    Array.from(btnModeToggler).forEach(element => {
+        element.addEventListener('click', (e) =>{
+            handleMode(element.getAttribute('mode'))
+            Array.from(btnModeToggler).forEach(element2 => {
+                if(element2 == element){
+                    element2.classList.add('active')
+                }
+                else{
+                    element2.classList.remove('active')
+                }
+            });
+            modeOptionsToggler.click()
+            return " "
+        })
+    });
+
+})
+
+function handleMode(mode) {
+    if(TEXT_MODE && mode == 'command'){
+        activateCommandMode()
+
+    }
+    else if (COMMAND_MODE && mode == 'text'){
+        activateTextMode()   
+
+    }
+}
+
+function activateCommandMode() {
+    speechRecognition.start()
+    TEXT_MODE = false
+    COMMAND_MODE = true
+}
+
+function activateTextMode() {
+    TEXT_MODE = true
+    COMMAND_MODE = false
+    speechRecognition.stop()
 }

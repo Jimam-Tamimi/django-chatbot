@@ -13,32 +13,59 @@
   </head>
 
   <body>
-    <div id="msg-container" class="msg-container">
-        <div id="msg-section-opener" class="msg-section-opener">
-            <!-- <i id="message-opener-icon" class="fas fa-comment"></i> -->
-            <i id="message-opener-icon"class="fas fa-robot"></i>
-        </div>
-        <div class="msg-section hide" id="msg-section">
-            <div class="top-section">
-                <div class="top-section-items expand-btn" id='msg-section-expand'><i class="fas fa-expand"></i></div>
-                <div class="top-section-items heading">ChatBot</div>
-                <div class="top-section-items close" id="msg-section-close"> <i class="fa fa-times"></i></div>
-            </div>
+    <div class="chatbot-container">
 
-            <div class="bottom-section">
-                <div id="all-message" class="all-messages-section">
+      <div id="msg-container" class="msg-container">
+          <div id="msg-section-opener" class="msg-section-opener">
+              <!-- <i id="message-opener-icon" class="fas fa-comment"></i> -->
+              <i id="message-opener-icon"class="fas fa-robot"></i>
+          </div>
+          <div class="msg-section hide" id="msg-section">
+              <div class="top-section">
+                  <div class="top-section-items expand-btn" id='msg-section-expand'><i class="fas fa-expand"></i></div>
+                  <div class="top-section-items heading">
+                    <p>ChatBot</p>
+                    <div  class="mode-options-toggler">
+                        <i style="z-index: 3445;" data-toggle="mode-options" id="mode-options-toggler"  class="fas fa-angle-down"></i>
+                    </div>
+                    <div class="mode-options" id="mode-options">
+                      <div class="mode-options-wrapper">
+                        <div class="message-mode-toggler">
+
+                          <button mode="text" class="btn btn-primary btn-sm btn-mode-toggler active">Text Mode</button>
+                          <button  mode="command" class="btn btn-primary btn-sm btn-mode-toggler">Command Mode</button>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="top-section-items close" id="msg-section-close"> <i class="fa fa-times"></i></div>
+              </div>
+
+              <div class="bottom-section">
+                  <div id="all-message" class="all-messages-section">
                     
-                </div>
+                  </div>
+                  <div class="send-message-section">
+                      <input autocomplete="off" type="text" id="message" class="message-input" placeholder="Aa">
+                      <button id="send-message" class="send-msg-btn"><i class="fas fa-paper-plane send-msg-btn-icon"></i></button>
+                  </div>
+              </div>
 
-                <div class="send-message-section">
-                    <input autocomplete="off" type="text" id="message" class="message-input" placeholder="Aa">
-                    <button id="send-message" class="send-msg-btn"><i class="fas fa-paper-plane send-msg-btn-icon"></i></button>
-                </div>
-            </div>
+          </div>
 
-        </div>
+      </div>
 
+
+
+      <div class="listening-info" id="listening-info">
+        <h4 id="listening-content" animation-text="Listening...">Listening...</h4>
+      </div>
+      
     </div>
+
+
+
     
 
     {% block content %}{% endblock content %}
