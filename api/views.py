@@ -19,8 +19,8 @@ def getResponse(reuqest):
         return True
     
     def getReply(userMessage):
-        for data in Data.objects.all():
-            for message in data.message.all():
+        for data in Data.objects.all().order_by("-index"):
+            for message in data.message.all().order_by("-index"):
                 if(userMessage.lower() in message.message.lower() or strInStr(userMessage, message.message)):
                     userMessageLength = len(userMessage)
                     messageLength = len(message.message)
@@ -31,6 +31,8 @@ def getResponse(reuqest):
                             randReply = choice(data.reply.all()).reply
                             data.index += 1
                             data.save()
+                            message.index += 1
+                            message.save()
                             return randReply
         return None
         
