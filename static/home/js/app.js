@@ -49,6 +49,9 @@ message.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
         event.preventDefault();
         let msg = message.value
+        msg = msg.replace(/[^a-zA-Z ]/g, "") // removing all spacol charecter
+        msg = msg.replace(/\s+/g, ' ').trim() // removing extra spaces
+        console.log(msg);
         sendMessage(msg)
     }
 })
@@ -66,9 +69,41 @@ function sendMessage(msg) {
         </div>
     </div>
     `
+    aendMessageToApi(msg)
     message.value = ''
     allMessageSection.scrollTop = allMessageSection.scrollHeight;
+
 }
 
 
 
+function aendMessageToApi(msg) {
+    const data = { message: msg };
+
+    fetch(`${BASE_URL}api/message/get-response/`, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+             "X-CSRFToken": csrftoken 
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        console.log(data.reply);
+        allMessageSection.innerHTML += `
+            <div class="message">
+                <div class="got message-status">
+                    <p>${data.reply}</p>
+                </div>
+            </div>
+        `
+        allMessageSection.scrollTop = allMessageSection.scrollHeight;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    
+    
+}

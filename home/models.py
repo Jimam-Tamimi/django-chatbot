@@ -8,23 +8,30 @@ class Tag(models.Model):
     def __str__(self):
         return str(self.tag)
 
-class Question(models.Model):
-    question = models.CharField("Question", max_length=500, blank=False, null=False, default="blank")
+class Message(models.Model):
+    message = models.CharField("Message", max_length=500, blank=False, null=False, default="blank")
 
     def __str__(self):
-        return str(self.question)
+        return str(self.message)
 
 
-class Answer(models.Model):
-    answer = models.CharField("Answer", max_length=500, blank=False, null=False, default="blank")
+class Reply(models.Model):
+    reply = models.CharField("Reply", max_length=500, blank=False, null=False, default="blank")
 
     def __str__(self):
-        return str(self.answer)
+        return str(self.reply)
 
 class Data(models.Model):
     tag = models.ManyToManyField(Tag)
-    question = models.ManyToManyField(Question)
-    answer = models.ManyToManyField(Answer)
+    message = models.ManyToManyField(Message)
+    reply = models.ManyToManyField(Reply)
+    index = models.PositiveBigIntegerField('Index', default=0, null=True, blank=True)
 
     def __str__(self):
-        return str(self.question)
+        return str(self.message)
+
+class MessageException(models.Model):
+    message = models.CharField("Exception Message", max_length=200, null=False, blank=False)
+
+    def __str__(self):
+        return str(self.message)

@@ -3,5 +3,5 @@ from django.urls.conf import include
 from api import views
 
 urlpatterns = [
-    # path('' , views.index)
+    path('message/get-response/' , views.getResponse)
 ]
