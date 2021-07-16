@@ -2,7 +2,7 @@ import wikipedia
 from datetime import datetime
 
 
-stop_words = {'tell', 'me', 'about', 'can', 'your', 'please', 'plz', 'what', 'do', 'you', 'know'}
+stop_words = {'tell', 'me', 'about', 'can', 'your','you', 'please', 'plz', 'what', 'do', 'you', 'know'}
 
 
 timeQuery = [
