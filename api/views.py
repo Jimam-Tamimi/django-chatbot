@@ -5,6 +5,9 @@ from json import  loads
 from home.models import MessageException, Data
 from random import choice
 from difflib import SequenceMatcher
+from api import intelligence
+
+
 # Create your views here.
 def getResponse(reuqest):
     def strInStr(userMessage, message):
@@ -49,11 +52,21 @@ def getResponse(reuqest):
             "reply": reply
         }
     else:
-        messageException = MessageException.objects.all()
 
-        context = {
-            "status": True,
-            "reply": choice(messageException).message
-        }
-    
+
+        moreMessageAnswer = intelligence.advanceMessages(userMessage)
+        if(moreMessageAnswer is not None):
+            context = {
+                "status": True,
+                "reply": moreMessageAnswer
+            }
+            return JsonResponse(context)
+        else:            
+            messageException = MessageException.objects.all()
+
+            context = {
+                "status": True,
+                "reply": choice(messageException).message
+            }
+        
     return JsonResponse(context)
