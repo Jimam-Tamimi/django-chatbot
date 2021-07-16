@@ -8,6 +8,46 @@ let msgSectionExpand = document.getElementById('msg-section-expand')
 let sendMessageBtn = document.getElementById('send-message')
 let message = document.getElementById('message')
 
+
+// for voice 
+var msg = new SpeechSynthesisUtterance();
+let voices;
+function setSpeech() {
+    return new Promise(
+        function (resolve, reject) {
+            let synth = window.speechSynthesis;
+            let id;
+
+            id = setInterval(() => {
+                if (synth.getVoices().length !== 0) {
+                    resolve(synth.getVoices());
+                    clearInterval(id);
+                }
+            }, 10);
+        }
+    )
+}
+let s = setSpeech();
+
+s.then((voicesVar) => {voices = voicesVar; msg.voice =  voices[1]; });  
+msg.volume = 1; // From 0 to 1
+msg.rate = .95; // From 0.1 to 10
+msg.pitch = 0; // From 0 to 2
+msg.lang = 'es';
+
+
+
+
+
+setTimeout(() => {
+    voices = window.speechSynthesis.getVoices();
+}, 1000);
+
+setTimeout(() => {
+    console.log(window.speechSynthesis.getVoices());
+}, 50);
+
+
 msgSectionOpener.addEventListener('click', (e)=>{
     // hide the msg section openner
     e.currentTarget.classList.add('hide')
@@ -69,15 +109,22 @@ function sendMessage(msg) {
         </div>
     </div>
     `
-    aendMessageToApi(msg)
+    sendMessageToApi(msg)
     message.value = ''
     allMessageSection.scrollTop = allMessageSection.scrollHeight;
 
 }
 
+function speak(text) {
+    text = text.replaceAll(':', '')
+    text = text.replaceAll(';', '')
+    text = text.replaceAll('(', '')
+    text = text.replaceAll(')', '')
+    msg.text = `${text}`;
+    speechSynthesis.speak(msg);
+}
 
-
-function aendMessageToApi(msg) {
+function sendMessageToApi(msg) {
     const data = { message: msg };
 
     fetch(`${BASE_URL}api/message/get-response/`, {
@@ -90,20 +137,22 @@ function aendMessageToApi(msg) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
-        console.log(data.reply);
-        allMessageSection.innerHTML += `
-            <div class="message">
-                <div class="got message-status">
-                    <p>${data.reply}</p>
-                </div>
-            </div>
-        `
-        allMessageSection.scrollTop = allMessageSection.scrollHeight;
+        showReply(data.reply)
+        
     })
     .catch((error) => {
         console.error('Error:', error);
     });
-    
-    
+}
+
+function showReply(msg) {
+    allMessageSection.innerHTML += `
+        <div class="message">
+            <div class="got message-status">
+                <p>${msg}</p>
+            </div>
+        </div>
+    `
+    speak(msg)
+    allMessageSection.scrollTop = allMessageSection.scrollHeight;
 }
