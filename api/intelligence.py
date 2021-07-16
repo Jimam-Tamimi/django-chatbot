@@ -34,7 +34,7 @@ def advanceMessages(message):
     if('about' in message):
         return tellMeAbout(message)
     elif('the time' in message or 'current time' in message):
-        return getCurrentTime(message)
+        return getCurrentTime()
 
     else:
         return None
