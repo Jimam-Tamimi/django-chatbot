@@ -47,8 +47,25 @@ import wikipedia
 
 from api import intelligence
 
-wikipedia.summary("python django", sentences = 2)
+# wikipedia.summary("python django", sentences = 2)
+# wiki = wikipedia.page('python django')
 
-print(intelligence.advanceMessages('tell me about youtube'))
+
+
+# print(wiki.url)
+
+
+print(intelligence.advanceMessages('tell me about wwe'))
 
 # print("name is jimam".split(' '))
+
+
+
+
+
+
+
+
+
+
+

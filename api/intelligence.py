@@ -31,7 +31,7 @@ def getCurrentTime():
 
 
 def advanceMessages(message):
-    if('about' in message):
+    if('about' in message or 'what is' in message or "do you know" in message):
         return tellMeAbout(message)
     elif('the time' in message or 'current time' in message):
         return getCurrentTime()
