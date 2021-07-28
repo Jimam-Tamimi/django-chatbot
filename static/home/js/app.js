@@ -194,7 +194,9 @@ function showReply(msg) {
             </div>
         </div>
     `
-    speak(msg)
+    if(COMMAND_MODE){
+        speak(msg)
+    }
     allMessageSection.scrollTop = allMessageSection.scrollHeight;
 }
 
