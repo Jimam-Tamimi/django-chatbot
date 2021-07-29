@@ -35,10 +35,11 @@ function setSpeech() {
 }
 let s = setSpeech();
 
-s.then((voicesVar) => {voices = voicesVar; msg.voice =  voices[1]; });  
+
+s.then((voicesVar) => {voices = voicesVar;  msg.voice =  voices[2]; });  
 msg.volume = 1; // From 0 to 1
 msg.rate = .95; // From 0.1 to 10
-msg.pitch = 0; // From 0 to 2
+msg.pitch = 1; // From 0 to 2
 msg.lang = 'es-US';
 
 
